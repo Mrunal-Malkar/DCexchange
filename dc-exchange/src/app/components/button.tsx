@@ -1,7 +1,15 @@
 "use client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 export const SignInButton = () => {
-  const handleAuthentication = () => {};
+  const { status, data } = useSession();
+  const handleAuthentication = () => {
+    if (data?.user && status == "authenticated") {
+      signOut();
+    } else {
+      signIn("google");
+    }
+  };
 
   return (
     <button
@@ -16,7 +24,9 @@ export const SignInButton = () => {
           alt="google image"
         />
       </div>
-      <div className="text-white font-bold p-1">Login</div>
+      <div className="text-white font-bold p-1">
+        {data?.user ? "Log-out" : "Sign-in"}
+      </div>
     </button>
   );
 };

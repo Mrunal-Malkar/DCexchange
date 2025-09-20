@@ -14,7 +14,7 @@ This project is not a production-ready exchange—it’s a **learning playground
 ## ⚡ Tech Stack
 - **Frontend** → Next.js + TailwindCSS  
 - **Backend** → Node.js (Express / API routes)  
-- **Database** → Prisma ORM with Postgres  
+- **Database** → Prisma ORM with mongoDb 
 - **Containerization** → Docker  
 
 ---

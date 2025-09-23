@@ -1,23 +1,52 @@
+import {db} from "@/app/utils/db-provider";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { Keypair } from "@solana/web3.js";
 
-
-const handler=NextAuth({
-  providers:[
+const handler = NextAuth({
+  providers: [
     Google({
-      clientId:process.env.GOOGLE_CLIENT_ID ?? "",
-      clientSecret:process.env.GOOGLE_CLIENT_SECRET ?? ""
-    })
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    }),
   ],
-  callbacks:{
-    async signIn({user,credentials,email,profile}){
-      // console.log("the user:",user);
-      // console.log("the credentials:",credentials);
-      // console.log("the email:",email);
-      // console.log("the profile:",profile);
-      return true;
-    }
-  }
-})
+  callbacks: {
+    async signIn({ user, profile }) {
+      const existingUser = await db.user.findFirst({
+        where: { email: user.email! },
+      });
 
-export {handler as GET,handler as POST}
+      if (!existingUser) {
+        const solKeyPair = Keypair.generate();
+        const inrKeyPair = Keypair.generate();
+
+        await db.user.create({
+          data: {
+            name: user.name!,
+            email: user.email!,
+            profile: profile?.image,
+            solanaWallet: {
+              create: {
+                publicKey: solKeyPair.publicKey.toBase58(),
+                privateKey: Buffer.from(solKeyPair.secretKey).toString(
+                  "base64"
+                ),
+              },
+            },
+            inrWallet: {
+              create: {
+                publicKey: inrKeyPair.publicKey.toBase58(),
+                privateKey: Buffer.from(inrKeyPair.secretKey).toString(
+                  "base64"
+                ),
+              },
+            },
+          },
+        });
+      }
+      return true;
+    },
+  },
+});
+
+export { handler as GET, handler as POST };

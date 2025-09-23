@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "@solana/web3.js": "^1.98.4",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
     "react": "19.1.0",

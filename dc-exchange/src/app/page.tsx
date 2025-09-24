@@ -1,5 +1,5 @@
 // import Link from "next/link";
-import { SignInButton } from "./components/button";
+import { SignInButton } from "../components/signInButton";
 
 function Home() {
   return (

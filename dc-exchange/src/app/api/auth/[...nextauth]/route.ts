@@ -1,7 +1,9 @@
-import {db} from "@/app/utils/db-provider";
+import {db} from "@/utils/db-provider";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { Keypair } from "@solana/web3.js";
+import { redirect } from "next/navigation";
+
 
 const handler = NextAuth({
   providers: [
@@ -42,8 +44,18 @@ const handler = NextAuth({
               },
             },
           },
-        });
+        })
+        .catch(()=>{
+          alert("error in signing user in, try again later!");
+          redirect("/");
+          return false;
+        })
+        .then(()=>{
+          redirect("/dashboard?welcome=true");
+          return true;
+        })
       }
+      redirect("/dashboard");
       return true;
     },
   },

@@ -1,4 +1,4 @@
-import { SignInButton } from "./button";
+import { SignInButton } from "./signInButton";
 
 export const Navbar = () => {
   return (

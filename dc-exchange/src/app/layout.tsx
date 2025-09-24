@@ -29,6 +29,7 @@ export default function RootLayout({
         <body className="bg-[#F0F8FF] flex justify-center flex-col w-full">
       <Provider>
           <Navbar />
+          <div id="toastContainer"></div>
           {children}
       </Provider>
         </body>

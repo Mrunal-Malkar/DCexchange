@@ -1,7 +1,15 @@
+"use client"
 // import Link from "next/link";
+import {ToastPortal} from "@/utils/toastPortal";
 import { SignInButton } from "../components/signInButton";
+import Toast from "@/utils/toaster";
 
 function Home() {
+  function handle(){
+    console.log("pressdd")
+    return (
+          ToastPortal({children:<p>Hello</p>}))
+  }
   return (
     <div className="flex w-4/5 self-center justify-center flex-col p-4">
       <div className="flex w-full justify-center flex-col pt-16 gap-y-3">
@@ -13,6 +21,7 @@ function Home() {
         Create a frictionless wallet with just google account,made for india.
       </h2>
       <div className="w-contain inline pt-2.5 self-center">
+        <button onClick={()=>handle()}>press me</button>
       <SignInButton/>
       </div>
       </div>

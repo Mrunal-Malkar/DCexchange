@@ -1,17 +1,10 @@
 import Image from 'next/image';
-import React from 'react'
+import React, { JSX } from 'react'
+import toastInfoInterface from './type';
 
-interface toastInfo{
-    Message:string,
-    BG:"white"|"gray",
-    Icon:"sucess"|"alert"|"failed"|"decent",
-}
-
-const Toast = (props:toastInfo) => {
+const Toast = (props:toastInfoInterface) => {
     const {Message,BG,Icon}=props;
-
-    const innerHtml=()=>{
-    return (
+return (
         <div
             className="fixed top-2 right-2 p-4 rounded-md shadow-md flex items-center gap-x-2"
             style={{ backgroundColor: BG }}
@@ -28,13 +21,7 @@ const Toast = (props:toastInfo) => {
             {Message}
             </p>
         </div>
-    )}
-    const toastELement=document.getElementById("toaster");
-    if(toastELement){
-
-        toastELement.innerHTML=innerHtml();
-    }
-
+)
 }
 
 export default Toast

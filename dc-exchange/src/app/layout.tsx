@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+// import "./globals.css";
 import { Navbar } from "../components/navbar";
 import { Provider } from "../components/provider";
 
@@ -29,7 +29,6 @@ export default function RootLayout({
         <body className="bg-[#F0F8FF] flex justify-center flex-col w-full">
       <Provider>
           <Navbar />
-          <div id="toastContainer"></div>
           {children}
       </Provider>
         </body>

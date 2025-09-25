@@ -1,13 +1,14 @@
-import { useSearchParams } from "next/navigation"
+import toast, { Toaster } from "react-hot-toast";
 
-const Client = () => {
-    const searchParams=useSearchParams();
-
-    if(searchParams.get("welcome")==="true"){
-        
-    }
+const Client = ({welcome}:{welcome?:boolean}) => {
+  if(welcome===true){
+    toast.success("Welcome to DC Exchange, you are now signed-in!");
+  }
+  
   return (
-    <div>Client</div>
+    <div>
+      <Toaster/>
+      Client</div>
   )
 }
 

@@ -13,7 +13,7 @@ export const SignInButton = () => {
 
   return (
     <button
-      className="flex text-lg p-1 rounded-md bg-[#2F4858] active:bg-gray-800"
+      className="flex text-sm md:text-lg p-1 rounded-md bg-[#2F4858] active:bg-gray-800"
       onClick={handleAuthentication}
     >
       <div className="bg-white rounded-md text-white flex items-center justify-center font-semibold p-1 px-1.5">

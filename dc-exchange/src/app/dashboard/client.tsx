@@ -43,8 +43,11 @@ const Client = ({ welcome }: { welcome?: boolean }) => {
             </div>
           </div>
         </div>
-        <div className="p-4 bg-gray-400 min-h-1/2 min-w-full rounded-b-2xl border-transparent">
-          as
+        <div className="flex flex-col p-4 bg-gray-50 min-h-1/2 min-w-full rounded-b-2xl border-transparent">
+          <div className="w-full flex justify-start items-end">
+            
+          </div>
+          <div className="w-full flex h-max justify-center items-center"></div>
         </div>
       </div>
     </div>

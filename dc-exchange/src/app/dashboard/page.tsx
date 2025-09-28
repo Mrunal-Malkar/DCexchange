@@ -4,6 +4,7 @@ import Client from "./client";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loader from "@/components/loader";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(false);
@@ -27,11 +28,9 @@ export default function Dashboard() {
       setLoading(true);
     }
     return (
-      <div className="w-full flex item-center justify-center h-full">
-        <p className="text-gray-700 w-full h-full text-2xl flex items-center justify-center flex-row">
-          Loading <span className="text-gray-700">...</span>
-        </p>
-      </div>
+      <div className="min-h-[90vh] w-screen flex item-center justify-center">
+        <Loader/>
+      </div> 
     );
   } else if (status === "unauthenticated" || !data?.user) {
     router.push("/?message=you%20are%20not%20signed-in");

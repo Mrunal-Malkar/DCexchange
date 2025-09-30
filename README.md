@@ -19,22 +19,6 @@ This project is not a production-ready exchange—it’s a **learning playground
 
 ---
 
-## 🏗️ Features (planned / in-progress)
-- User authentication (demo mode, no real money).  
-- Place Buy/Sell orders.  
-- Order matching engine (in-memory for speed, persisted via DB).  
-- OrderBook view (pending & fulfilled orders).  
-- Basic trade history.  
-- Docker setup for easy deployment.  
-
----
-
-## 📚 Learning Goals
-- Understand how a **Centralized Exchange (CEX)** architecture works.  
-- Explore how decentralized concepts (auditability, pseudo-transparency) can fit into it.  
-- Practice full-stack development with modern tools (Next.js, Prisma, Docker).  
-
----
 
 ## 🚀 Getting Started
 
@@ -49,15 +33,15 @@ cd DC-exchange
 npm install
 ```
 
-### 3. For now this much is enough-just run "npm run dev" now!!
-
-### not needed now!! 👇👇
 ### 3. Setup the database
 Make sure Postgres is running (you can use Docker).  
 Update your `.env` file with your database URL:  
 
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/dc_exchange"
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_URL=
 ```
 
 Then run:
@@ -74,6 +58,47 @@ The app should now be live at [http://localhost:3000](http://localhost:3000).
 
 ---
 
+
+## Contribute
+before contributing
+
+### Set upstream and pull latest changes
+```bash
+git remote add upstream https://github.com/Mrunal-Malkar/DCexchange
+```
+and then pull latest changes to avoid conflict error:
+```bash
+git fetch upstream
+```
+then move to your branch and add the changes
+```bash
+git branch <your_local_branch-name>
+git merge upstream/main
+```
+now,push the changes to your remote branch:
+```bash
+git push origin <your_branch_name>
+```
+Now, you are ready to:
+### Click on the "compare" and make a pull request button and make a pull request!!
+
+
+## 🏗️ Features (planned / in-progress)
+- User authentication (demo mode, no real money).  
+- Place Buy/Sell orders.  
+- Order matching engine (in-memory for speed, persisted via DB).  
+- OrderBook view (pending & fulfilled orders).  
+- Basic trade history.  
+- Docker setup for easy deployment.  
+
+---
+
+## 📚 Learning Goals
+- Understand how a **Centralized Exchange (CEX)** architecture works.  
+- Explore how decentralized concepts (auditability, pseudo-transparency) can fit into it.  
+- Practice full-stack development with modern tools (Next.js, Prisma, Docker).  
+
+---
 ## 🛠️ Roadmap
 - [ ] Authentication system.  
 - [ ] Core order-matching logic.  

@@ -24,7 +24,7 @@ const handler = NextAuth({
             data: {
               name: user.name!,
               email: user.email!,
-              profile: profile?.image,
+              profile: user.image,
               solanaWallet: {
                 create: {
                   publicKey: solKeyPair.publicKey.toBase58(),

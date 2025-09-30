@@ -35,7 +35,7 @@ const Client = ({ welcome }: { welcome?: boolean }) => {
             </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center">
-            <div className="w-full flex justify-around font-semibold gap-x-1.5 text-xl">
+            <div className="w-full flex justify-around font-semibold gap-x-1.5 text-lg md:text-xl">
               <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">Send</button>
               <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">Add funds</button>
               <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">Withdraw</button>

@@ -38,7 +38,7 @@ export const Navbar = () => {
       <li onClick={()=>{setDisplay(false);router.push("/")}} className="w-full cursor-pointer hover:bg-gray-50 bg-gray-100 duration-100 transition-all border-y-2 border-gray-300">
         Home
       </li>
-      <li onClick={()=>{setDisplay(false);signOut()}} className="w-full hover:bg-gray-50 bg-gray-100 duration-100 cursor-pointer transition-all border-y-2 border-gray-300">
+      <li onClick={()=>{setDisplay(false);signOut();router.push("/")}} className="w-full hover:bg-gray-50 bg-gray-100 duration-100 cursor-pointer transition-all border-y-2 border-gray-300">
         Sign-out
       </li>
     </ul>

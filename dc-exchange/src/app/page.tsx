@@ -1,15 +1,12 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 // import Link from "next/link";
 import { SignInButton } from "../components/signInButton";
-import { toastMap } from "@/utils/type";
 import { useSession } from "next-auth/react";
 import DashboardButton from "@/components/gotodashboardButton";
 import { useEffect, useState } from "react";
 import Loader from "@/components/loader";
 
 function Home() {
-  const searchParams = useSearchParams();
   const session=useSession();
   const [authenticated,setAuthenticated]=useState(false);
 
@@ -23,17 +20,6 @@ function Home() {
     }
   },[session,authenticated])
 
-  if (
-    searchParams.get("message") !== null &&
-    searchParams.get("toastType") !== null
-  ) {
-    const message = searchParams.get("message") as string;
-    const type = searchParams.get("toastType") as keyof typeof toastMap;
-    const fn = toastMap[type];
-    if (fn) {
-      fn(message);
-    }
-  }
   return (
     <div className="flex w-4/5 self-center justify-center flex-col p-4">
       <div className="flex w-full justify-center flex-col pt-16 gap-y-3">

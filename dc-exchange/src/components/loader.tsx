@@ -2,10 +2,12 @@ import React from 'react';
 
 const Loader = () => {
   return (
-    <div className="flex-col gap-4 w-full flex items-center justify-center">
-      <div className="w-18 h-18 sm:w-28 sm:h-28 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-left-right-icon lucide-arrow-left-right"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>  
-      </div>
+    <div className='h-[90dvh] flex justify-center align-middle w-full'>
+    <div className="flex flex-row gap-2 self-center">
+      <div className="w-4 h-4 rounded-full bg-green-500 animate-bounce" />
+      <div className="w-4 h-4 rounded-full bg-green-500 animate-bounce [animation-delay:-.3s]" />
+      <div className="w-4 h-4 rounded-full bg-green-500 animate-bounce [animation-delay:-.5s]" />
+    </div>
     </div>
   );
 }

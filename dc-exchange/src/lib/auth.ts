@@ -53,13 +53,15 @@ export const authProvider:NextAuthOptions={
 
     jwt({token,user}){
         if(user){
+          console.log("this is the user at the backend:",user)
             token.id=user.id;
         }
         return token;
     },
     session({session,token}){
         if(session.user){
-            session.user.id=token.id as string;
+          console.log("this is the token id at the backend",token.id);
+          session.user.id=token.id as string;
         }
         return session;
     }

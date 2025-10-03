@@ -5,16 +5,19 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Toaster } from "react-hot-toast";
 
-const Client = () => {
+const Client = ({publicKey}:{publicKey:string}) => {
   const { data } = useSession();
+
+  function GetCapitalName(){
   const nameArray = data?.user?.name?.split(" ");
-  console.log(data?.user?.image);
-  const name = nameArray?.map((i) => {
+  const name = nameArray?.map((i:string) => {
     const firstLetter = i[0].toUpperCase();
     const restOfName = i.slice(1);
     if (i == nameArray[0]) return firstLetter + restOfName + " ";
     return firstLetter + restOfName;
   });
+return name;
+}
   const picture = data?.user?.image?.replace("s96-c", "s1024-c");
 
   return (
@@ -50,7 +53,8 @@ const Client = () => {
               )}
             </div>
             <div className="flex text-2xl font-semibold justify-center items-center">
-              <h1>{name}</h1>
+              <h1>{GetCapitalName()}</h1>
+              <p>{publicKey}</p>
             </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center gap-y-0">
@@ -92,7 +96,7 @@ const Client = () => {
           <div className="w-full flex flex-col h-max justify-center items-center">
             <div className="w-full h-min flex justify-start items-center">
               <button className="p-0.5 sm:p-1 sm:px-1.5 font-semibold text-2xl">
-                Tokens
+                Tokens {publicKey}
               </button>
             </div>
             <ul className="h-max w-full flex justifiy-start gap-y-0.5 text-xl items-start flex-col">

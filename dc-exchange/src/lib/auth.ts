@@ -11,7 +11,7 @@ export const authProvider:NextAuthOptions={
     }),
   ],
   callbacks: {
-    async signIn({ user, profile }) {
+    async signIn({ user }) {
       const existingUser = await db.user.findFirst({
         where: { email: user.email! },
       });

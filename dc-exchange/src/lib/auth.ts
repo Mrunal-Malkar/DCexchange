@@ -1,9 +1,13 @@
-import { db } from "@/utils/db-provider";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { Keypair } from "@solana/web3.js";
 import { NextAuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
+import { db } from "@/utils/db-provider";
+// import { PrismaClient } from "@prisma/client";
 
-export const authProvider:NextAuthOptions={
+// const prisma=new PrismaClient;
+
+export const authProvider: NextAuthOptions = {
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -11,11 +15,27 @@ export const authProvider:NextAuthOptions={
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
+    jwt({ token, user,account }) {
+      if (user) {
+        console.log("this is the provider account Id :",account?.providerAccountId)
+        token.id = account?.providerAccountId;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user) {
+        console.log("this is the token id at the backend", token.id);
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+    async signIn({ user, account }) {
+      if (account?.provider != "google") {
+        return false;
+      }
       const existingUser = await db.user.findFirst({
         where: { email: user.email! },
       });
-
       if (!existingUser) {
         const solKeyPair = Keypair.generate();
         const inrKeyPair = Keypair.generate();
@@ -25,6 +45,8 @@ export const authProvider:NextAuthOptions={
               name: user.name!,
               email: user.email!,
               profile: user.image,
+              provider:account?.provider,
+              sub:account?.providerAccountId,
               solanaWallet: {
                 create: {
                   publicKey: solKeyPair.publicKey.toBase58(),
@@ -50,20 +72,6 @@ export const authProvider:NextAuthOptions={
       }
       return true;
     },
-
-    jwt({token,user}){
-        if(user){
-          console.log("this is the user at the backend:",user)
-            token.id=user.id;
-        }
-        return token;
-    },
-    session({session,token}){
-        if(session.user){
-          console.log("this is the token id at the backend",token.id);
-          session.user.id=token.id as string;
-        }
-        return session;
-    }
   },
-}
+  // adapter: PrismaAdapter(prisma),
+};

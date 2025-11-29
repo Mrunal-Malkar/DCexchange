@@ -6,8 +6,10 @@ import { redirect } from "next/navigation";
 import { SignInButton } from "@/components/signInButton";
 
 const session = await getServerSession(authProvider);
-console.log("hey this is the user at the frontend",session?.user);
 async function GetWallet() {
+  console.log("this is the session user on frontend",session?.user);
+  const walletPublicKeyf=await db.solanaWallet.findFirst({});
+  console.log("this is the walletPublicKey on frontend",walletPublicKeyf);
   try {
     const walletPublicKey = await db.solanaWallet.findFirst({
       where: {

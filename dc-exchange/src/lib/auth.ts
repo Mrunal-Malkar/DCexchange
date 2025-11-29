@@ -6,6 +6,16 @@ import { db } from "@/utils/db-provider";
 // import { PrismaClient } from "@prisma/client";
 
 // const prisma=new PrismaClient;
+async function getUserId(providerAccountId:string|undefined){
+  const userId=await db.user.findFirst({
+          where:{
+            sub:providerAccountId
+          },select:{
+            id:true
+          }
+        });
+  return userId;
+}
 
 export const authProvider: NextAuthOptions = {
   providers: [
@@ -17,8 +27,8 @@ export const authProvider: NextAuthOptions = {
   callbacks: {
     jwt({ token, user,account }) {
       if (user) {
-        console.log("this is the provider account Id :",account?.providerAccountId)
-        token.id = account?.providerAccountId;
+        const userId=getUserId(account?.providerAccountId);
+        token.id = userId;
       }
       return token;
     },
@@ -39,6 +49,10 @@ export const authProvider: NextAuthOptions = {
       if (!existingUser) {
         const solKeyPair = Keypair.generate();
         const inrKeyPair = Keypair.generate();
+        const solanaPublicKey=solKeyPair.publicKey.toBase58();
+        const solanaPrivateKey=Buffer.from(solKeyPair.secretKey).toString("base64");
+        const inrWalletPublicKey=inrKeyPair.publicKey.toBase58();
+        const inrWalletPrivateKey=Buffer.from(inrKeyPair.secretKey).toString("base64");
         try {
           await db.user.create({
             data: {
@@ -49,18 +63,14 @@ export const authProvider: NextAuthOptions = {
               sub:account?.providerAccountId,
               solanaWallet: {
                 create: {
-                  publicKey: solKeyPair.publicKey.toBase58(),
-                  privateKey: Buffer.from(solKeyPair.secretKey).toString(
-                    "base64"
-                  ),
+                  publicKey:solanaPublicKey,
+                  privateKey:solanaPrivateKey,
                 },
               },
               inrWallet: {
                 create: {
-                  publicKey: inrKeyPair.publicKey.toBase58(),
-                  privateKey: Buffer.from(inrKeyPair.secretKey).toString(
-                    "base64"
-                  ),
+                  publicKey: inrWalletPublicKey,
+                  privateKey:inrWalletPrivateKey,
                 },
               },
             },

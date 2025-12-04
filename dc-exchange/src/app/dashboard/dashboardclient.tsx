@@ -1,12 +1,14 @@
 "use client";
-import { Wallet } from "lucide-react";
+import { Copy, Wallet } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Toaster } from "react-hot-toast";
+import { useState } from "react";
 
 const Client = ({publicKey}:{publicKey:string}) => {
   const { data } = useSession();
+  const [isCopiedWalletAdress,setIsCopiedWalletAdress]=useState<boolean>(false);
 
   function GetCapitalName(){
   const nameArray = data?.user?.name?.split(" ");
@@ -18,6 +20,16 @@ const Client = ({publicKey}:{publicKey:string}) => {
   });
 return name;
 }
+
+function handleClipBoard(){
+if(isCopiedWalletAdress)return;
+  navigator.clipboard.writeText(publicKey)
+  setIsCopiedWalletAdress(true);
+  setTimeout(()=>{
+    setIsCopiedWalletAdress(false);
+  },3000);
+}
+
   const picture = data?.user?.image?.replace("s96-c", "s1024-c");
 
   return (
@@ -34,7 +46,7 @@ return name;
         className="h-[600px] w-full md:w-[803px] grid grid-rows-2 md:mt-18 mt-4 rounded-2xl shadow-2xl"
       >
         <div className="px-8 py-4 bg-white grid grid-rows-3 min-h-1/2 min-w-full rounded-t-2xl border-transparent">
-          <div className="w-full flex justify-start gap-x-0.5 items-center">
+          <div className="w-full flex justify-start gap-x-1.5 items-center">
             <div className="w-18 h-18 ">
               {picture ? (
                 <Image
@@ -52,9 +64,9 @@ return name;
                 </div>
               )}
             </div>
-            <div className="flex text-2xl font-semibold justify-center items-center">
-              <h1>{GetCapitalName()}</h1>
-              <p>{publicKey}</p>
+            <div className="flex text-3xl font-semibold justify-center items-end">
+              <h1>Welcome back,<span className="font-semibold"> {GetCapitalName()}</span></h1>
+              {/* <p>Let&apos;s exchange!</p> */}
             </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center gap-y-0">
@@ -67,25 +79,29 @@ return name;
               </p>
             </div>
             <div className="flex w-full justify-between items-center">
-              <div className="flex w-full justify-start items-end gap-x-2">
+              <div className="flex justify-start items-end gap-x-2">
                 <h1 className="text-7xl text-gray-800 font-bold">$0.00</h1>
                 <h6 className="text-3xl text-gray-600 font-semibold">USD</h6>
               </div>
-              <div></div>
+              <div className="flex items-center">
+                <button onClick={handleClipBoard} className="px-2 py-1.5 flex gap-x-1 rounded-2xl items-center hover:bg-gray-300 bg-gray-200 text-black/70 cursor-pointer">
+                <Copy size={16} strokeWidth={0.75} />
+                {isCopiedWalletAdress?"Copied!":"Your wallet Adress"}</button>
+              </div>
             </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center">
             <div className="w-full flex justify-around font-semibold gap-x-1.5 text-lg md:text-xl">
-              <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
+              <button className="text-white cursor-pointer bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
                 Send
               </button>
-              <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
+              <button className="text-white cursor-pointer bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
                 Add funds
               </button>
-              <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
+              <button className="text-white cursor-pointer bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
                 Withdraw
               </button>
-              <button className="text-white bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
+              <button className="text-white cursor-pointer bg-gray-700 px-4 md:px-7 py-2 w-1/4 rounded-lg">
                 Swap
               </button>
             </div>
